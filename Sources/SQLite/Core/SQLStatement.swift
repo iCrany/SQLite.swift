@@ -114,6 +114,21 @@ public final class SQLStatement {
             self.bind(value.datatypeValue, atIndex: idx)
         } else if let value = value as? Bool {
             self.bind(value.datatypeValue, atIndex: idx)
+        } else if let value = value as? Data { //iCrany: 单独处理 Data 数据类型
+            let bytes: [UInt8] = value.withUnsafeBytes {
+                [UInt8](UnsafeBufferPointer(start: $0, count: value.count))
+            }
+            sqlite3_bind_blob(handle, Int32(idx), bytes, Int32(value.count), SQLITE_TRANSIENT)
+            
+        } else if let value = value as? NSData { //iCrany: 单独处理 NSData 数据类型
+            let count = value.length / MemoryLayout<UInt8>.size
+            
+            // create an array of UInt8
+            var bytes: [UInt8] = [UInt8](repeating: 0, count: count)
+            // copy bytes into array
+            value.getBytes(&bytes, length:count)
+            sqlite3_bind_blob(handle, Int32(idx), bytes, Int32(count), SQLITE_TRANSIENT)
+            
         } else if let value = value {
             fatalError("tried to bind unexpected value \(value)")
         }
