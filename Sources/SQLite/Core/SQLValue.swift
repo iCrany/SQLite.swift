@@ -59,6 +59,18 @@ extension Double : SQLNumber, SQLValue {
 
 }
 
+extension Int32: SQLNumber, SQLValue {
+    public static let declaredDatatype = Int64.declaredDatatype
+    
+    public static func fromDatatypeValue(_ datatypeValue: Int32) -> Int32 {
+        return datatypeValue
+    }
+    
+    public var datatypeValue: Int32 {
+        return self
+    }
+}
+
 extension Int64 : SQLNumber, SQLValue {
 
     public static let declaredDatatype = "INTEGER"
@@ -129,4 +141,12 @@ extension Int : SQLNumber, SQLValue {
         return Int64(self)
     }
 
+}
+
+extension Data: SQLBinding {
+    
+}
+
+extension NSData: SQLBinding {
+    
 }
