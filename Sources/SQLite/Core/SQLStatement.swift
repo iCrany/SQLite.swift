@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+import Foundation
 
 #if SQLITE_SWIFT_STANDALONE
 import sqlite3
@@ -99,7 +100,7 @@ public final class SQLStatement {
         return self
     }
 
-    fileprivate func bind(_ value: SQLBinding?, atIndex idx: Int) {
+    public func bind(_ value: SQLBinding?, atIndex idx: Int) {
         if value == nil {
             sqlite3_bind_null(handle, Int32(idx))
         } else if let value = value as? SQLBlob {

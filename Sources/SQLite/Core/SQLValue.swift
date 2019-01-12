@@ -27,6 +27,9 @@
 ///
 ///   Do not conform custom types to the Binding protocol. See the `Value`
 ///   protocol, instead.
+
+import Foundation
+
 public protocol SQLBinding {}
 
 public protocol SQLNumber : SQLBinding {}
