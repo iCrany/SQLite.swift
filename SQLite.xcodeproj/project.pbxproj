@@ -57,7 +57,7 @@
 		19A173668D948AD4DF1F5352 /* SQLDateAndTimeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17BA55DABB480F9020C8A /* SQLDateAndTimeFunctions.swift */; };
 		19A1737286A74F3CF7412906 /* SQLDateAndTimeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17BA55DABB480F9020C8A /* SQLDateAndTimeFunctions.swift */; };
 		19A17408007B182F884E3A53 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17B93B48B5560E6E51791 /* Fixtures.swift */; };
-		19A17490543609FCED53CACC /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* Errors.swift */; };
+		19A17490543609FCED53CACC /* SQLErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* SQLErrors.swift */; };
 		19A174D78559CD30679BCCCB /* FTS5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1721B8984686B9963B45D /* FTS5Tests.swift */; };
 		19A1750CEE9B05267995CF3D /* SQLFTS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1730E4390C775C25677D1 /* SQLFTS5.swift */; };
 		19A175DFF47B84757E547C62 /* fixtures in Resources */ = {isa = PBXBuildFile; fileRef = 19A17E2695737FAB5D6086E3 /* fixtures */; };
@@ -66,13 +66,13 @@
 		19A178072B371489E6A1E839 /* FoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1794CC4D7827E997E32A7 /* FoundationTests.swift */; };
 		19A17835FD5886FDC5A3228F /* SQLCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A178A39ACA9667A62663CC /* SQLCipher.swift */; };
 		19A1785195182AF8731A8BDA /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A175C1F9CB3BBAB8FCEC7B /* RowTests.swift */; };
-		19A1792C0520D4E83C2EB075 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* Errors.swift */; };
+		19A1792C0520D4E83C2EB075 /* SQLErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* SQLErrors.swift */; };
 		19A179A0C45377CB09BB358C /* CipherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17399EA9E61235D5D77BF /* CipherTests.swift */; };
 		19A179CCF9671E345E5A9811 /* SQLCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A178A39ACA9667A62663CC /* SQLCipher.swift */; };
 		19A179E76EA6207669B60C1B /* SQLCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A178A39ACA9667A62663CC /* SQLCipher.swift */; };
 		19A17C4B951CB054EE48AB1C /* CipherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17399EA9E61235D5D77BF /* CipherTests.swift */; };
 		19A17C80076860CF7751A056 /* DateAndTimeFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1729B75C33F9A0B9A89C1 /* DateAndTimeFunctionTests.swift */; };
-		19A17DC282E36C4F41AA440B /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* Errors.swift */; };
+		19A17DC282E36C4F41AA440B /* SQLErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* SQLErrors.swift */; };
 		19A17E04C4C0956715C5676A /* FoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1794CC4D7827E997E32A7 /* FoundationTests.swift */; };
 		19A17E29278A12BC4F542506 /* SQLDateAndTimeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17BA55DABB480F9020C8A /* SQLDateAndTimeFunctions.swift */; };
 		19A17EC0D68BA8C03288ADF7 /* SQLFTS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1730E4390C775C25677D1 /* SQLFTS5.swift */; };
@@ -80,7 +80,7 @@
 		19A17F60B685636D1F83C2DD /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A17B93B48B5560E6E51791 /* Fixtures.swift */; };
 		19A17FB80B94E882050AA908 /* FoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1794CC4D7827E997E32A7 /* FoundationTests.swift */; };
 		19A17FDA323BAFDEC627E76F /* fixtures in Resources */ = {isa = PBXBuildFile; fileRef = 19A17E2695737FAB5D6086E3 /* fixtures */; };
-		19A17FF4A10B44D3937C8CAC /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* Errors.swift */; };
+		19A17FF4A10B44D3937C8CAC /* SQLErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A1710E73A46D5AC721CDA9 /* SQLErrors.swift */; };
 		3D67B3E61DB2469200A4F4C6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D67B3E51DB2469200A4F4C6 /* libsqlite3.tbd */; };
 		3D67B3E71DB246BA00A4F4C6 /* SQLBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE247AEE1C3F06E900AE3E12 /* SQLBlob.swift */; };
 		3D67B3E81DB246BA00A4F4C6 /* SQLConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE247AEF1C3F06E900AE3E12 /* SQLConnection.swift */; };
@@ -182,8 +182,6 @@
 		EE247B751C3F3FEC00AE3E12 /* SQLSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE247B021C3F06E900AE3E12 /* SQLSetter.swift */; };
 		EE91808E1C46E5230038162A /* SQLite-Bridging.h in Headers */ = {isa = PBXBuildFile; fileRef = EE91808D1C46E5230038162A /* SQLite-Bridging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE91808F1C46E76D0038162A /* SQLite-Bridging.h in Headers */ = {isa = PBXBuildFile; fileRef = EE91808D1C46E5230038162A /* SQLite-Bridging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE9180941C46EA210038162A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9180931C46EA210038162A /* libsqlite3.tbd */; };
-		EE9180951C46EBCC0038162A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9180911C46E9D30038162A /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,7 +212,7 @@
 		03A65E5A1C6BB0F50062603F /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A65E631C6BB0F60062603F /* SQLiteTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLiteTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A65E961C6BB3210062603F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
-		19A1710E73A46D5AC721CDA9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		19A1710E73A46D5AC721CDA9 /* SQLErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLErrors.swift; sourceTree = "<group>"; };
 		19A1721B8984686B9963B45D /* FTS5Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTS5Tests.swift; sourceTree = "<group>"; };
 		19A1729B75C33F9A0B9A89C1 /* DateAndTimeFunctionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateAndTimeFunctionTests.swift; sourceTree = "<group>"; };
 		19A1730E4390C775C25677D1 /* SQLFTS5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLFTS5.swift; sourceTree = "<group>"; };
@@ -278,8 +276,6 @@
 		EE247B921C3F822600AE3E12 /* playground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playground@2x.png"; sourceTree = "<group>"; };
 		EE247B931C3F826100AE3E12 /* SQLite.swift.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = SQLite.swift.podspec; sourceTree = "<group>"; };
 		EE91808D1C46E5230038162A /* SQLite-Bridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SQLite-Bridging.h"; path = "../../SQLiteObjc/include/SQLite-Bridging.h"; sourceTree = "<group>"; };
-		EE9180911C46E9D30038162A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
-		EE9180931C46EA210038162A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,7 +307,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE9180941C46EA210038162A /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,7 +322,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE9180951C46EBCC0038162A /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +427,7 @@
 				EE247AF11C3F06E900AE3E12 /* SQLite-Bridging.m */,
 				EE247AF21C3F06E900AE3E12 /* SQLStatement.swift */,
 				EE247AF31C3F06E900AE3E12 /* SQLValue.swift */,
-				19A1710E73A46D5AC721CDA9 /* Errors.swift */,
+				19A1710E73A46D5AC721CDA9 /* SQLErrors.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -475,8 +469,6 @@
 				EE247B931C3F826100AE3E12 /* SQLite.swift.podspec */,
 				EE247B8C1C3F821200AE3E12 /* .travis.yml */,
 				EE247B8D1C3F821200AE3E12 /* Makefile */,
-				EE9180931C46EA210038162A /* libsqlite3.tbd */,
-				EE9180911C46E9D30038162A /* libsqlite3.tbd */,
 				03A65E961C6BB3210062603F /* libsqlite3.tbd */,
 				EE247B8E1C3F822500AE3E12 /* Documentation */,
 			);
@@ -817,7 +809,7 @@
 				03A65E7E1C6BB2FB0062603F /* SQLAggregateFunctions.swift in Sources */,
 				19A17EC0D68BA8C03288ADF7 /* SQLFTS5.swift in Sources */,
 				19A179E76EA6207669B60C1B /* SQLCipher.swift in Sources */,
-				19A17FF4A10B44D3937C8CAC /* Errors.swift in Sources */,
+				19A17FF4A10B44D3937C8CAC /* SQLErrors.swift in Sources */,
 				19A1737286A74F3CF7412906 /* SQLDateAndTimeFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -875,7 +867,7 @@
 				3D67B3E71DB246BA00A4F4C6 /* SQLBlob.swift in Sources */,
 				3D67B3E81DB246BA00A4F4C6 /* SQLConnection.swift in Sources */,
 				19A179CCF9671E345E5A9811 /* SQLCipher.swift in Sources */,
-				19A17DC282E36C4F41AA440B /* Errors.swift in Sources */,
+				19A17DC282E36C4F41AA440B /* SQLErrors.swift in Sources */,
 				19A173668D948AD4DF1F5352 /* SQLDateAndTimeFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -905,7 +897,7 @@
 				EE247B0D1C3F06E900AE3E12 /* SQLAggregateFunctions.swift in Sources */,
 				19A1717B10CC941ACB5533D6 /* SQLFTS5.swift in Sources */,
 				19A171F12AB8B07F2FD7201A /* SQLCipher.swift in Sources */,
-				19A1792C0520D4E83C2EB075 /* Errors.swift in Sources */,
+				19A1792C0520D4E83C2EB075 /* SQLErrors.swift in Sources */,
 				19A17E29278A12BC4F542506 /* SQLDateAndTimeFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -963,7 +955,7 @@
 				EE247B6D1C3F3FEC00AE3E12 /* SQLAggregateFunctions.swift in Sources */,
 				19A1750CEE9B05267995CF3D /* SQLFTS5.swift in Sources */,
 				19A17835FD5886FDC5A3228F /* SQLCipher.swift in Sources */,
-				19A17490543609FCED53CACC /* Errors.swift in Sources */,
+				19A17490543609FCED53CACC /* SQLErrors.swift in Sources */,
 				19A17152E32A9585831E3FE0 /* SQLDateAndTimeFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
