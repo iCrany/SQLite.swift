@@ -22,9 +22,9 @@
 // THE SOFTWARE.
 //
 
-extension Module {
-    public static func FTS5(_ config: FTS5Config) -> Module {
-        return Module(name: "fts5", arguments: config.arguments())
+extension SQLModule {
+    public static func FTS5(_ config: SQLFTS5Config) -> SQLModule {
+        return SQLModule(name: "fts5", arguments: config.arguments())
     }
 }
 
@@ -32,7 +32,7 @@ extension Module {
 ///
 /// **Note:** this is currently only applicable when using SQLite.swift together with a FTS5-enabled version
 /// of SQLite.
-open class FTS5Config : FTSConfig {
+open class SQLFTS5Config : SQLFTSConfig {
     public enum Detail : CustomStringConvertible {
         /// store rowid, column number, term offset
         case full
@@ -51,14 +51,14 @@ open class FTS5Config : FTSConfig {
     }
 
     var detail: Detail?
-    var contentRowId: Expressible?
+    var contentRowId: SQLExpressible?
     var columnSize: Int?
 
     override public init() {
     }
 
     /// [External Content Tables](https://www.sqlite.org/fts5.html#section_4_4_2)
-    open func contentRowId(_ column: Expressible) -> Self {
+    open func contentRowId(_ column: SQLExpressible) -> Self {
         self.contentRowId = column
         return self
     }
@@ -79,16 +79,16 @@ open class FTS5Config : FTSConfig {
         var options = super.options()
         options.append("content_rowid", value: contentRowId)
         if let columnSize = columnSize {
-            options.append("columnsize", value: Expression<Int>(value: columnSize))
+            options.append("columnsize", value: SQLExpression<Int>(value: columnSize))
         }
         options.append("detail", value: detail)
         return options
     }
 
-    override func formatColumnDefinitions() -> [Expressible] {
+    override func formatColumnDefinitions() -> [SQLExpressible] {
         return columnDefinitions.map { definition in
             if definition.options.contains(.unindexed) {
-                return " ".join([definition.0, Expression<Void>(literal: "UNINDEXED")])
+                return " ".join([definition.0, SQLExpression<Void>(literal: "UNINDEXED")])
             } else {
                 return definition.0
             }

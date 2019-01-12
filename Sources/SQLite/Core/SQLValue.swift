@@ -27,15 +27,15 @@
 ///
 ///   Do not conform custom types to the Binding protocol. See the `Value`
 ///   protocol, instead.
-public protocol Binding {}
+public protocol SQLBinding {}
 
-public protocol Number : Binding {}
+public protocol SQLNumber : SQLBinding {}
 
-public protocol Value : Expressible { // extensions cannot have inheritance clauses
+public protocol SQLValue : SQLExpressible { // extensions cannot have inheritance clauses
 
     associatedtype ValueType = Self
 
-    associatedtype Datatype : Binding
+    associatedtype Datatype : SQLBinding
 
     static var declaredDatatype: String { get }
 
@@ -45,7 +45,7 @@ public protocol Value : Expressible { // extensions cannot have inheritance clau
 
 }
 
-extension Double : Number, Value {
+extension Double : SQLNumber, SQLValue {
 
     public static let declaredDatatype = "REAL"
 
@@ -59,7 +59,7 @@ extension Double : Number, Value {
 
 }
 
-extension Int64 : Number, Value {
+extension Int64 : SQLNumber, SQLValue {
 
     public static let declaredDatatype = "INTEGER"
 
@@ -73,7 +73,7 @@ extension Int64 : Number, Value {
 
 }
 
-extension String : Binding, Value {
+extension String : SQLBinding, SQLValue {
 
     public static let declaredDatatype = "TEXT"
 
@@ -87,15 +87,15 @@ extension String : Binding, Value {
 
 }
 
-extension Blob : Binding, Value {
+extension SQLBlob : SQLBinding, SQLValue {
 
     public static let declaredDatatype = "BLOB"
 
-    public static func fromDatatypeValue(_ datatypeValue: Blob) -> Blob {
+    public static func fromDatatypeValue(_ datatypeValue: SQLBlob) -> SQLBlob {
         return datatypeValue
     }
 
-    public var datatypeValue: Blob {
+    public var datatypeValue: SQLBlob {
         return self
     }
 
@@ -103,7 +103,7 @@ extension Blob : Binding, Value {
 
 // MARK: -
 
-extension Bool : Binding, Value {
+extension Bool : SQLBinding, SQLValue {
 
     public static var declaredDatatype = Int64.declaredDatatype
 
@@ -117,7 +117,7 @@ extension Bool : Binding, Value {
 
 }
 
-extension Int : Number, Value {
+extension Int : SQLNumber, SQLValue {
 
     public static var declaredDatatype = Int64.declaredDatatype
 

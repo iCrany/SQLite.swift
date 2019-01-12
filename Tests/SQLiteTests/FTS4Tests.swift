@@ -37,9 +37,9 @@ class FTS4Tests : XCTestCase {
     }
 
     func test_match_onVirtualTableAsQueryType_compilesMatchExpression() {
-        AssertSQL("SELECT * FROM \"virtual_table\" WHERE (\"virtual_table\" MATCH 'string')", virtualTable.match("string") as QueryType)
-        AssertSQL("SELECT * FROM \"virtual_table\" WHERE (\"virtual_table\" MATCH \"string\")", virtualTable.match(string) as QueryType)
-        AssertSQL("SELECT * FROM \"virtual_table\" WHERE (\"virtual_table\" MATCH \"stringOptional\")", virtualTable.match(stringOptional) as QueryType)
+        AssertSQL("SELECT * FROM \"virtual_table\" WHERE (\"virtual_table\" MATCH 'string')", virtualTable.match("string") as SQLQueryType)
+        AssertSQL("SELECT * FROM \"virtual_table\" WHERE (\"virtual_table\" MATCH \"string\")", virtualTable.match(string) as SQLQueryType)
+        AssertSQL("SELECT * FROM \"virtual_table\" WHERE (\"virtual_table\" MATCH \"stringOptional\")", virtualTable.match(stringOptional) as SQLQueryType)
     }
 
 }
@@ -179,8 +179,8 @@ class FTS4IntegrationTests : SQLiteTestCase {
 #if !SQLITE_SWIFT_STANDALONE && !SQLITE_SWIFT_SQLCIPHER
     func test_registerTokenizer_registersTokenizer() {
         let emails = VirtualTable("emails")
-        let subject = Expression<String?>("subject")
-        let body = Expression<String?>("body")
+        let subject = SQLExpression<String?>("subject")
+        let body = SQLExpression<String?>("body")
 
         let locale = CFLocaleCopyCurrent()
         let tokenizerName = "tokenizer"

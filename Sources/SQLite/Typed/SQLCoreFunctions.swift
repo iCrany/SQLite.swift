@@ -25,7 +25,7 @@
 import Foundation
 
 
-extension ExpressionType where UnderlyingType : Number {
+extension SQLExpressionType where UnderlyingType : SQLNumber {
 
     /// Builds a copy of the expression wrapped with the `abs` function.
     ///
@@ -34,13 +34,13 @@ extension ExpressionType where UnderlyingType : Number {
     ///     // abs("x")
     ///
     /// - Returns: A copy of the expression wrapped with the `abs` function.
-    public var absoluteValue : Expression<UnderlyingType> {
+    public var absoluteValue : SQLExpression<UnderlyingType> {
         return "abs".wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.WrappedType : Number {
+extension SQLExpressionType where UnderlyingType : _SQLOptionalType, UnderlyingType.WrappedType : SQLNumber {
 
     /// Builds a copy of the expression wrapped with the `abs` function.
     ///
@@ -49,13 +49,13 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///     // abs("x")
     ///
     /// - Returns: A copy of the expression wrapped with the `abs` function.
-    public var absoluteValue : Expression<UnderlyingType> {
+    public var absoluteValue : SQLExpression<UnderlyingType> {
         return "abs".wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType == Double {
+extension SQLExpressionType where UnderlyingType == Double {
 
     /// Builds a copy of the expression wrapped with the `round` function.
     ///
@@ -66,7 +66,7 @@ extension ExpressionType where UnderlyingType == Double {
     ///     // round("salary", 2)
     ///
     /// - Returns: A copy of the expression wrapped with the `round` function.
-    public func round(_ precision: Int? = nil) -> Expression<UnderlyingType> {
+    public func round(_ precision: Int? = nil) -> SQLExpression<UnderlyingType> {
         guard let precision = precision else {
             return wrap([self])
         }
@@ -75,7 +75,7 @@ extension ExpressionType where UnderlyingType == Double {
 
 }
 
-extension ExpressionType where UnderlyingType == Double? {
+extension SQLExpressionType where UnderlyingType == Double? {
 
     /// Builds a copy of the expression wrapped with the `round` function.
     ///
@@ -86,7 +86,7 @@ extension ExpressionType where UnderlyingType == Double? {
     ///     // round("salary", 2)
     ///
     /// - Returns: A copy of the expression wrapped with the `round` function.
-    public func round(_ precision: Int? = nil) -> Expression<UnderlyingType> {
+    public func round(_ precision: Int? = nil) -> SQLExpression<UnderlyingType> {
         guard let precision = precision else {
             return wrap(self)
         }
@@ -95,7 +95,7 @@ extension ExpressionType where UnderlyingType == Double? {
 
 }
 
-extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype == Int64 {
+extension SQLExpressionType where UnderlyingType : SQLValue, UnderlyingType.Datatype == Int64 {
 
     /// Builds an expression representing the `random` function.
     ///
@@ -103,13 +103,13 @@ extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype =
     ///     // random()
     ///
     /// - Returns: An expression calling the `random` function.
-    public static func random() -> Expression<UnderlyingType> {
+    public static func random() -> SQLExpression<UnderlyingType> {
         return "random".wrap([])
     }
 
 }
 
-extension ExpressionType where UnderlyingType == Data {
+extension SQLExpressionType where UnderlyingType == Data {
 
     /// Builds an expression representing the `randomblob` function.
     ///
@@ -119,7 +119,7 @@ extension ExpressionType where UnderlyingType == Data {
     /// - Parameter length: Length in bytes.
     ///
     /// - Returns: An expression calling the `randomblob` function.
-    public static func random(_ length: Int) -> Expression<UnderlyingType> {
+    public static func random(_ length: Int) -> SQLExpression<UnderlyingType> {
         return "randomblob".wrap([])
     }
 
@@ -131,7 +131,7 @@ extension ExpressionType where UnderlyingType == Data {
     /// - Parameter length: Length in bytes.
     ///
     /// - Returns: An expression calling the `zeroblob` function.
-    public static func allZeros(_ length: Int) -> Expression<UnderlyingType> {
+    public static func allZeros(_ length: Int) -> SQLExpression<UnderlyingType> {
         return "zeroblob".wrap([])
     }
 
@@ -142,13 +142,13 @@ extension ExpressionType where UnderlyingType == Data {
     ///     // length("data")
     ///
     /// - Returns: A copy of the expression wrapped with the `length` function.
-    public var length: Expression<Int> {
+    public var length: SQLExpression<Int> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType == Data? {
+extension SQLExpressionType where UnderlyingType == Data? {
 
     /// Builds a copy of the expression wrapped with the `length` function.
     ///
@@ -157,13 +157,13 @@ extension ExpressionType where UnderlyingType == Data? {
     ///     // length("data")
     ///
     /// - Returns: A copy of the expression wrapped with the `length` function.
-    public var length: Expression<Int?> {
+    public var length: SQLExpression<Int?> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType == String {
+extension SQLExpressionType where UnderlyingType == String {
 
     /// Builds a copy of the expression wrapped with the `length` function.
     ///
@@ -172,7 +172,7 @@ extension ExpressionType where UnderlyingType == String {
     ///     // length("name")
     ///
     /// - Returns: A copy of the expression wrapped with the `length` function.
-    public var length: Expression<Int> {
+    public var length: SQLExpression<Int> {
         return wrap(self)
     }
 
@@ -183,7 +183,7 @@ extension ExpressionType where UnderlyingType == String {
     ///     // lower("name")
     ///
     /// - Returns: A copy of the expression wrapped with the `lower` function.
-    public var lowercaseString: Expression<UnderlyingType> {
+    public var lowercaseString: SQLExpression<UnderlyingType> {
         return "lower".wrap(self)
     }
 
@@ -194,7 +194,7 @@ extension ExpressionType where UnderlyingType == String {
     ///     // lower("name")
     ///
     /// - Returns: A copy of the expression wrapped with the `upper` function.
-    public var uppercaseString: Expression<UnderlyingType> {
+    public var uppercaseString: SQLExpression<UnderlyingType> {
         return "upper".wrap(self)
     }
 
@@ -216,11 +216,11 @@ extension ExpressionType where UnderlyingType == String {
     ///
     /// - Returns: A copy of the expression appended with a `LIKE` query against
     ///   the given pattern.
-    public func like(_ pattern: String, escape character: Character? = nil) -> Expression<Bool> {
+    public func like(_ pattern: String, escape character: Character? = nil) -> SQLExpression<Bool> {
         guard let character = character else {
             return "LIKE".infix(self, pattern)
         }
-        return Expression("(\(template) LIKE ? ESCAPE ?)", bindings + [pattern, String(character)])
+        return SQLExpression("(\(template) LIKE ? ESCAPE ?)", bindings + [pattern, String(character)])
     }
 
     /// Builds a copy of the expression appended with a `LIKE` query against the
@@ -240,12 +240,12 @@ extension ExpressionType where UnderlyingType == String {
     ///
     /// - Returns: A copy of the expression appended with a `LIKE` query against
     ///   the given pattern.
-    public func like(_ pattern: Expression<String>, escape character: Character? = nil) -> Expression<Bool> {
+    public func like(_ pattern: SQLExpression<String>, escape character: Character? = nil) -> SQLExpression<Bool> {
         guard let character = character else {
             return "LIKE".infix(self, pattern)
         }
-        let like: Expression<Bool> = "LIKE".infix(self, pattern, wrap: false)
-        return Expression("(\(like.template) ESCAPE ?)", like.bindings + [String(character)])
+        let like: SQLExpression<Bool> = "LIKE".infix(self, pattern, wrap: false)
+        return SQLExpression("(\(like.template) ESCAPE ?)", like.bindings + [String(character)])
     }
 
     /// Builds a copy of the expression appended with a `GLOB` query against the
@@ -259,7 +259,7 @@ extension ExpressionType where UnderlyingType == String {
     ///
     /// - Returns: A copy of the expression appended with a `GLOB` query against
     ///   the given pattern.
-    public func glob(_ pattern: String) -> Expression<Bool> {
+    public func glob(_ pattern: String) -> SQLExpression<Bool> {
         return "GLOB".infix(self, pattern)
     }
 
@@ -274,7 +274,7 @@ extension ExpressionType where UnderlyingType == String {
     ///
     /// - Returns: A copy of the expression appended with a `MATCH` query
     ///   against the given pattern.
-    public func match(_ pattern: String) -> Expression<Bool> {
+    public func match(_ pattern: String) -> SQLExpression<Bool> {
         return "MATCH".infix(self, pattern)
     }
 
@@ -285,7 +285,7 @@ extension ExpressionType where UnderlyingType == String {
     ///
     /// - Returns: A copy of the expression appended with a `REGEXP` query
     ///   against the given pattern.
-    public func regexp(_ pattern: String) -> Expression<Bool> {
+    public func regexp(_ pattern: String) -> SQLExpression<Bool> {
         return "REGEXP".infix(self, pattern)
     }
 
@@ -300,7 +300,7 @@ extension ExpressionType where UnderlyingType == String {
     ///
     /// - Returns: A copy of the expression appended with a `COLLATE` clause
     ///   with the given sequence.
-    public func collate(_ collation: Collation) -> Expression<UnderlyingType> {
+    public func collate(_ collation: SQLCollation) -> SQLExpression<UnderlyingType> {
         return "COLLATE".infix(self, collation)
     }
 
@@ -315,7 +315,7 @@ extension ExpressionType where UnderlyingType == String {
     /// - Parameter characters: A set of characters to trim.
     ///
     /// - Returns: A copy of the expression wrapped with the `ltrim` function.
-    public func ltrim(_ characters: Set<Character>? = nil) -> Expression<UnderlyingType> {
+    public func ltrim(_ characters: Set<Character>? = nil) -> SQLExpression<UnderlyingType> {
         guard let characters = characters else {
             return wrap(self)
         }
@@ -333,7 +333,7 @@ extension ExpressionType where UnderlyingType == String {
     /// - Parameter characters: A set of characters to trim.
     ///
     /// - Returns: A copy of the expression wrapped with the `rtrim` function.
-    public func rtrim(_ characters: Set<Character>? = nil) -> Expression<UnderlyingType> {
+    public func rtrim(_ characters: Set<Character>? = nil) -> SQLExpression<UnderlyingType> {
         guard let characters = characters else {
             return wrap(self)
         }
@@ -351,7 +351,7 @@ extension ExpressionType where UnderlyingType == String {
     /// - Parameter characters: A set of characters to trim.
     ///
     /// - Returns: A copy of the expression wrapped with the `trim` function.
-    public func trim(_ characters: Set<Character>? = nil) -> Expression<UnderlyingType> {
+    public func trim(_ characters: Set<Character>? = nil) -> SQLExpression<UnderlyingType> {
         guard let characters = characters else {
             return wrap([self])
         }
@@ -371,24 +371,24 @@ extension ExpressionType where UnderlyingType == String {
     ///   - replacement: The replacement string.
     ///
     /// - Returns: A copy of the expression wrapped with the `replace` function.
-    public func replace(_ pattern: String, with replacement: String) -> Expression<UnderlyingType> {
+    public func replace(_ pattern: String, with replacement: String) -> SQLExpression<UnderlyingType> {
         return "replace".wrap([self, pattern, replacement])
     }
 
-    public func substring(_ location: Int, length: Int? = nil) -> Expression<UnderlyingType> {
+    public func substring(_ location: Int, length: Int? = nil) -> SQLExpression<UnderlyingType> {
         guard let length = length else {
             return "substr".wrap([self, location])
         }
         return "substr".wrap([self, location, length])
     }
 
-    public subscript(range: Range<Int>) -> Expression<UnderlyingType> {
+    public subscript(range: Range<Int>) -> SQLExpression<UnderlyingType> {
         return substring(range.lowerBound, length: range.upperBound - range.lowerBound)
     }
 
 }
 
-extension ExpressionType where UnderlyingType == String? {
+extension SQLExpressionType where UnderlyingType == String? {
 
     /// Builds a copy of the expression wrapped with the `length` function.
     ///
@@ -397,7 +397,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///     // length("name")
     ///
     /// - Returns: A copy of the expression wrapped with the `length` function.
-    public var length: Expression<Int?> {
+    public var length: SQLExpression<Int?> {
         return wrap(self)
     }
 
@@ -408,7 +408,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///     // lower("name")
     ///
     /// - Returns: A copy of the expression wrapped with the `lower` function.
-    public var lowercaseString: Expression<UnderlyingType> {
+    public var lowercaseString: SQLExpression<UnderlyingType> {
         return "lower".wrap(self)
     }
 
@@ -419,7 +419,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///     // lower("name")
     ///
     /// - Returns: A copy of the expression wrapped with the `upper` function.
-    public var uppercaseString: Expression<UnderlyingType> {
+    public var uppercaseString: SQLExpression<UnderlyingType> {
         return "upper".wrap(self)
     }
 
@@ -441,11 +441,11 @@ extension ExpressionType where UnderlyingType == String? {
     ///
     /// - Returns: A copy of the expression appended with a `LIKE` query against
     ///   the given pattern.
-    public func like(_ pattern: String, escape character: Character? = nil) -> Expression<Bool?> {
+    public func like(_ pattern: String, escape character: Character? = nil) -> SQLExpression<Bool?> {
         guard let character = character else {
             return "LIKE".infix(self, pattern)
         }
-        return Expression("(\(template) LIKE ? ESCAPE ?)", bindings + [pattern, String(character)])
+        return SQLExpression("(\(template) LIKE ? ESCAPE ?)", bindings + [pattern, String(character)])
     }
     
     /// Builds a copy of the expression appended with a `LIKE` query against the
@@ -465,12 +465,12 @@ extension ExpressionType where UnderlyingType == String? {
     ///
     /// - Returns: A copy of the expression appended with a `LIKE` query against
     ///   the given pattern.
-    public func like(_ pattern: Expression<String>, escape character: Character? = nil) -> Expression<Bool?> {
+    public func like(_ pattern: SQLExpression<String>, escape character: Character? = nil) -> SQLExpression<Bool?> {
         guard let character = character else {
             return "LIKE".infix(self, pattern)
         }
-        let like: Expression<Bool> = "LIKE".infix(self, pattern, wrap: false)
-        return Expression("(\(like.template) ESCAPE ?)", like.bindings + [String(character)])
+        let like: SQLExpression<Bool> = "LIKE".infix(self, pattern, wrap: false)
+        return SQLExpression("(\(like.template) ESCAPE ?)", like.bindings + [String(character)])
     }
 
     /// Builds a copy of the expression appended with a `GLOB` query against the
@@ -484,7 +484,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///
     /// - Returns: A copy of the expression appended with a `GLOB` query against
     ///   the given pattern.
-    public func glob(_ pattern: String) -> Expression<Bool?> {
+    public func glob(_ pattern: String) -> SQLExpression<Bool?> {
         return "GLOB".infix(self, pattern)
     }
 
@@ -499,7 +499,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///
     /// - Returns: A copy of the expression appended with a `MATCH` query
     ///   against the given pattern.
-    public func match(_ pattern: String) -> Expression<Bool> {
+    public func match(_ pattern: String) -> SQLExpression<Bool> {
         return "MATCH".infix(self, pattern)
     }
 
@@ -510,7 +510,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///
     /// - Returns: A copy of the expression appended with a `REGEXP` query
     ///   against the given pattern.
-    public func regexp(_ pattern: String) -> Expression<Bool?> {
+    public func regexp(_ pattern: String) -> SQLExpression<Bool?> {
         return "REGEXP".infix(self, pattern)
     }
 
@@ -525,7 +525,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///
     /// - Returns: A copy of the expression appended with a `COLLATE` clause
     ///   with the given sequence.
-    public func collate(_ collation: Collation) -> Expression<UnderlyingType> {
+    public func collate(_ collation: SQLCollation) -> SQLExpression<UnderlyingType> {
         return "COLLATE".infix(self, collation)
     }
 
@@ -540,7 +540,7 @@ extension ExpressionType where UnderlyingType == String? {
     /// - Parameter characters: A set of characters to trim.
     ///
     /// - Returns: A copy of the expression wrapped with the `ltrim` function.
-    public func ltrim(_ characters: Set<Character>? = nil) -> Expression<UnderlyingType> {
+    public func ltrim(_ characters: Set<Character>? = nil) -> SQLExpression<UnderlyingType> {
         guard let characters = characters else {
             return wrap(self)
         }
@@ -558,7 +558,7 @@ extension ExpressionType where UnderlyingType == String? {
     /// - Parameter characters: A set of characters to trim.
     ///
     /// - Returns: A copy of the expression wrapped with the `rtrim` function.
-    public func rtrim(_ characters: Set<Character>? = nil) -> Expression<UnderlyingType> {
+    public func rtrim(_ characters: Set<Character>? = nil) -> SQLExpression<UnderlyingType> {
         guard let characters = characters else {
             return wrap(self)
         }
@@ -576,7 +576,7 @@ extension ExpressionType where UnderlyingType == String? {
     /// - Parameter characters: A set of characters to trim.
     ///
     /// - Returns: A copy of the expression wrapped with the `trim` function.
-    public func trim(_ characters: Set<Character>? = nil) -> Expression<UnderlyingType> {
+    public func trim(_ characters: Set<Character>? = nil) -> SQLExpression<UnderlyingType> {
         guard let characters = characters else {
             return wrap(self)
         }
@@ -596,7 +596,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///   - replacement: The replacement string.
     ///
     /// - Returns: A copy of the expression wrapped with the `replace` function.
-    public func replace(_ pattern: String, with replacement: String) -> Expression<UnderlyingType> {
+    public func replace(_ pattern: String, with replacement: String) -> SQLExpression<UnderlyingType> {
         return "replace".wrap([self, pattern, replacement])
     }
 
@@ -615,7 +615,7 @@ extension ExpressionType where UnderlyingType == String? {
     ///   - length: An optional substring length.
     ///
     /// - Returns: A copy of the expression wrapped with the `substr` function.
-    public func substring(_ location: Int, length: Int? = nil) -> Expression<UnderlyingType> {
+    public func substring(_ location: Int, length: Int? = nil) -> SQLExpression<UnderlyingType> {
         guard let length = length else {
             return "substr".wrap([self, location])
         }
@@ -631,13 +631,13 @@ extension ExpressionType where UnderlyingType == String? {
     /// - Parameter range: The character index range of the substring.
     ///
     /// - Returns: A copy of the expression wrapped with the `substr` function.
-    public subscript(range: Range<Int>) -> Expression<UnderlyingType> {
+    public subscript(range: Range<Int>) -> SQLExpression<UnderlyingType> {
         return substring(range.lowerBound, length: range.upperBound - range.lowerBound)
     }
 
 }
 
-extension Collection where Iterator.Element : Value {
+extension Collection where Iterator.Element : SQLValue {
 
     /// Builds a copy of the expression prepended with an `IN` check against the
     /// collection.
@@ -650,9 +650,9 @@ extension Collection where Iterator.Element : Value {
     ///
     /// - Returns: A copy of the expression prepended with an `IN` check against
     ///   the collection.
-    public func contains(_ expression: Expression<Iterator.Element>) -> Expression<Bool> {
+    public func contains(_ expression: SQLExpression<Iterator.Element>) -> SQLExpression<Bool> {
         let templates = [String](repeating: "?", count: count).joined(separator: ", ")
-        return "IN".infix(expression, Expression<Void>("(\(templates))", map { $0.datatypeValue }))
+        return "IN".infix(expression, SQLExpression<Void>("(\(templates))", map { $0.datatypeValue }))
     }
 
     /// Builds a copy of the expression prepended with an `IN` check against the
@@ -666,9 +666,9 @@ extension Collection where Iterator.Element : Value {
     ///
     /// - Returns: A copy of the expression prepended with an `IN` check against
     ///   the collection.
-    public func contains(_ expression: Expression<Iterator.Element?>) -> Expression<Bool?> {
+    public func contains(_ expression: SQLExpression<Iterator.Element?>) -> SQLExpression<Bool?> {
         let templates = [String](repeating: "?", count: count).joined(separator: ", ")
-        return "IN".infix(expression, Expression<Void>("(\(templates))", map { $0.datatypeValue }))
+        return "IN".infix(expression, SQLExpression<Void>("(\(templates))", map { $0.datatypeValue }))
     }
 
 }
@@ -692,12 +692,12 @@ extension String {
     ///
     /// - Returns: A copy of the expression appended with a `LIKE` query against
     ///   the given pattern.
-    public func like(_ pattern: Expression<String>, escape character: Character? = nil) -> Expression<Bool> {
+    public func like(_ pattern: SQLExpression<String>, escape character: Character? = nil) -> SQLExpression<Bool> {
         guard let character = character else {
             return "LIKE".infix(self, pattern)
         }
-        let like: Expression<Bool> = "LIKE".infix(self, pattern, wrap: false)
-        return Expression("(\(like.template) ESCAPE ?)", like.bindings + [String(character)])
+        let like: SQLExpression<Bool> = "LIKE".infix(self, pattern, wrap: false)
+        return SQLExpression("(\(like.template) ESCAPE ?)", like.bindings + [String(character)])
     }
 
 }
@@ -717,7 +717,7 @@ extension String {
 ///
 /// - Returns: A copy of the given expressions wrapped with the `ifnull`
 ///   function.
-public func ??<V : Value>(optional: Expression<V?>, defaultValue: V) -> Expression<V> {
+public func ??<V : SQLValue>(optional: SQLExpression<V?>, defaultValue: V) -> SQLExpression<V> {
     return "ifnull".wrap([optional, defaultValue])
 }
 
@@ -737,7 +737,7 @@ public func ??<V : Value>(optional: Expression<V?>, defaultValue: V) -> Expressi
 ///
 /// - Returns: A copy of the given expressions wrapped with the `ifnull`
 ///   function.
-public func ??<V : Value>(optional: Expression<V?>, defaultValue: Expression<V>) -> Expression<V> {
+public func ??<V : SQLValue>(optional: SQLExpression<V?>, defaultValue: SQLExpression<V>) -> SQLExpression<V> {
     return "ifnull".wrap([optional, defaultValue])
 }
 
@@ -757,6 +757,6 @@ public func ??<V : Value>(optional: Expression<V?>, defaultValue: Expression<V>)
 ///
 /// - Returns: A copy of the given expressions wrapped with the `ifnull`
 ///   function.
-public func ??<V : Value>(optional: Expression<V?>, defaultValue: Expression<V?>) -> Expression<V> {
+public func ??<V : SQLValue>(optional: SQLExpression<V?>, defaultValue: SQLExpression<V?>) -> SQLExpression<V> {
     return "ifnull".wrap([optional, defaultValue])
 }

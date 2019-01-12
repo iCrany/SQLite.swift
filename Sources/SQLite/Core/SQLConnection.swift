@@ -35,10 +35,10 @@ import SQLite3
 #endif
 
 /// A connection to SQLite.
-public final class Connection {
+public final class SQLConnection {
 
     /// The location of a SQLite database.
-    public enum Location {
+    public enum SQLLocation {
 
         /// An in-memory database (equivalent to `.uri(":memory:")`).
         ///
@@ -59,7 +59,7 @@ public final class Connection {
     }
 
     /// An SQL operation passed to update callbacks.
-    public enum Operation {
+    public enum SQLOperation {
 
         /// An INSERT operation.
         case insert
@@ -102,10 +102,10 @@ public final class Connection {
     ///     Default: `false`.
     ///
     /// - Returns: A new database connection.
-    public init(_ location: Location = .inMemory, readonly: Bool = false) throws {
+    public init(_ location: SQLLocation = .inMemory, readonly: Bool = false) throws {
         let flags = readonly ? SQLITE_OPEN_READONLY : SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE
         try check(sqlite3_open_v2(location.description, &_handle, flags | SQLITE_OPEN_FULLMUTEX, nil))
-        queue.setSpecific(key: Connection.queueKey, value: queueContext)
+        queue.setSpecific(key: SQLConnection.queueKey, value: queueContext)
     }
 
     /// Initializes a new connection to a database.
@@ -175,9 +175,9 @@ public final class Connection {
     ///   - bindings: A list of parameters to bind to the statement.
     ///
     /// - Returns: A prepared statement.
-    public func prepare(_ statement: String, _ bindings: Binding?...) throws -> Statement {
+    public func prepare(_ statement: String, _ bindings: SQLBinding?...) throws -> SQLStatement {
         if !bindings.isEmpty { return try prepare(statement, bindings) }
-        return try Statement(self, statement)
+        return try SQLStatement(self, statement)
     }
 
     /// Prepares a single SQL statement and binds parameters to it.
@@ -189,7 +189,7 @@ public final class Connection {
     ///   - bindings: A list of parameters to bind to the statement.
     ///
     /// - Returns: A prepared statement.
-    public func prepare(_ statement: String, _ bindings: [Binding?]) throws -> Statement {
+    public func prepare(_ statement: String, _ bindings: [SQLBinding?]) throws -> SQLStatement {
         return try prepare(statement).bind(bindings)
     }
 
@@ -202,7 +202,7 @@ public final class Connection {
     ///   - bindings: A dictionary of named parameters to bind to the statement.
     ///
     /// - Returns: A prepared statement.
-    public func prepare(_ statement: String, _ bindings: [String: Binding?]) throws -> Statement {
+    public func prepare(_ statement: String, _ bindings: [String: SQLBinding?]) throws -> SQLStatement {
         return try prepare(statement).bind(bindings)
     }
 
@@ -219,7 +219,7 @@ public final class Connection {
     /// - Throws: `Result.Error` if query execution fails.
     ///
     /// - Returns: The statement.
-    @discardableResult public func run(_ statement: String, _ bindings: Binding?...) throws -> Statement {
+    @discardableResult public func run(_ statement: String, _ bindings: SQLBinding?...) throws -> SQLStatement {
         return try run(statement, bindings)
     }
 
@@ -234,7 +234,7 @@ public final class Connection {
     /// - Throws: `Result.Error` if query execution fails.
     ///
     /// - Returns: The statement.
-    @discardableResult public func run(_ statement: String, _ bindings: [Binding?]) throws -> Statement {
+    @discardableResult public func run(_ statement: String, _ bindings: [SQLBinding?]) throws -> SQLStatement {
         return try prepare(statement).run(bindings)
     }
 
@@ -249,7 +249,7 @@ public final class Connection {
     /// - Throws: `Result.Error` if query execution fails.
     ///
     /// - Returns: The statement.
-    @discardableResult public func run(_ statement: String, _ bindings: [String: Binding?]) throws -> Statement {
+    @discardableResult public func run(_ statement: String, _ bindings: [String: SQLBinding?]) throws -> SQLStatement {
         return try prepare(statement).run(bindings)
     }
 
@@ -265,7 +265,7 @@ public final class Connection {
     ///   - bindings: A list of parameters to bind to the statement.
     ///
     /// - Returns: The first value of the first row returned.
-    public func scalar(_ statement: String, _ bindings: Binding?...) throws -> Binding? {
+    public func scalar(_ statement: String, _ bindings: SQLBinding?...) throws -> SQLBinding? {
         return try scalar(statement, bindings)
     }
 
@@ -279,7 +279,7 @@ public final class Connection {
     ///   - bindings: A list of parameters to bind to the statement.
     ///
     /// - Returns: The first value of the first row returned.
-    public func scalar(_ statement: String, _ bindings: [Binding?]) throws -> Binding? {
+    public func scalar(_ statement: String, _ bindings: [SQLBinding?]) throws -> SQLBinding? {
         return try prepare(statement).scalar(bindings)
     }
 
@@ -293,7 +293,7 @@ public final class Connection {
     ///   - bindings: A dictionary of named parameters to bind to the statement.
     ///
     /// - Returns: The first value of the first row returned.
-    public func scalar(_ statement: String, _ bindings: [String: Binding?]) throws -> Binding? {
+    public func scalar(_ statement: String, _ bindings: [String: SQLBinding?]) throws -> SQLBinding? {
         return try prepare(statement).scalar(bindings)
     }
 
@@ -459,7 +459,7 @@ public final class Connection {
     /// - Parameter callback: A callback invoked with the `Operation` (one of
     ///   `.Insert`, `.Update`, or `.Delete`), database name, table name, and
     ///   rowid.
-    public func updateHook(_ callback: ((_ operation: Operation, _ db: String, _ table: String, _ rowid: Int64) -> Void)?) {
+    public func updateHook(_ callback: ((_ operation: SQLOperation, _ db: String, _ table: String, _ rowid: Int64) -> Void)?) {
         guard let callback = callback else {
             sqlite3_update_hook(handle, nil, nil)
             updateHook = nil
@@ -468,7 +468,7 @@ public final class Connection {
 
         let box: UpdateHook = {
             callback(
-                Operation(rawValue: $0),
+                SQLOperation(rawValue: $0),
                 String(cString: $1),
                 String(cString: $2),
                 $3
@@ -549,14 +549,14 @@ public final class Connection {
     ///   - block: A block of code to run when the function is called. The block
     ///     is called with an array of raw SQL values mapped to the function’s
     ///     parameters and should return a raw SQL value (or nil).
-    public func createFunction(_ function: String, argumentCount: UInt? = nil, deterministic: Bool = false, _ block: @escaping (_ args: [Binding?]) -> Binding?) {
+    public func createFunction(_ function: String, argumentCount: UInt? = nil, deterministic: Bool = false, _ block: @escaping (_ args: [SQLBinding?]) -> SQLBinding?) {
         let argc = argumentCount.map { Int($0) } ?? -1
         let box: Function = { context, argc, argv in
-            let arguments: [Binding?] = (0..<Int(argc)).map { idx in
+            let arguments: [SQLBinding?] = (0..<Int(argc)).map { idx in
                 let value = argv![idx]
                 switch sqlite3_value_type(value) {
                 case SQLITE_BLOB:
-                    return Blob(bytes: sqlite3_value_blob(value), length: Int(sqlite3_value_bytes(value)))
+                    return SQLBlob(bytes: sqlite3_value_blob(value), length: Int(sqlite3_value_bytes(value)))
                 case SQLITE_FLOAT:
                     return sqlite3_value_double(value)
                 case SQLITE_INTEGER:
@@ -570,7 +570,7 @@ public final class Connection {
                 }
             }
             let result = block(arguments)
-            if let result = result as? Blob {
+            if let result = result as? SQLBlob {
                 sqlite3_result_blob(context, result.bytes, Int32(result.bytes.count), nil)
             } else if let result = result as? Double {
                 sqlite3_result_double(context, result)
@@ -631,14 +631,14 @@ public final class Connection {
     // MARK: - Error Handling
 
     func sync<T>(_ block: () throws -> T) rethrows -> T {
-        if DispatchQueue.getSpecific(key: Connection.queueKey) == queueContext {
+        if DispatchQueue.getSpecific(key: SQLConnection.queueKey) == queueContext {
             return try block()
         } else {
             return try queue.sync(execute: block)
         }
     }
 
-    @discardableResult func check(_ resultCode: Int32, statement: Statement? = nil) throws -> Int32 {
+    @discardableResult func check(_ resultCode: Int32, statement: SQLStatement? = nil) throws -> Int32 {
         guard let error = Result(errorCode: resultCode, connection: self, statement: statement) else {
             return resultCode
         }
@@ -654,7 +654,7 @@ public final class Connection {
 
 }
 
-extension Connection : CustomStringConvertible {
+extension SQLConnection : CustomStringConvertible {
 
     public var description: String {
         return String(cString: sqlite3_db_filename(handle, nil))
@@ -662,7 +662,7 @@ extension Connection : CustomStringConvertible {
 
 }
 
-extension Connection.Location : CustomStringConvertible {
+extension SQLConnection.SQLLocation : CustomStringConvertible {
 
     public var description: String {
         switch self {
@@ -688,9 +688,9 @@ public enum Result : Error {
     /// - code: SQLite [error code](https://sqlite.org/rescode.html#primary_result_code_list)
     ///
     /// - statement: the statement which produced the error
-    case error(message: String, code: Int32, statement: Statement?)
+    case error(message: String, code: Int32, statement: SQLStatement?)
 
-    init?(errorCode: Int32, connection: Connection, statement: Statement? = nil) {
+    init?(errorCode: Int32, connection: SQLConnection, statement: SQLStatement? = nil) {
         guard !Result.successCodes.contains(errorCode) else { return nil }
 
         let message = String(cString: sqlite3_errmsg(connection.handle))
@@ -715,7 +715,7 @@ extension Result : CustomStringConvertible {
 
 #if !SQLITE_SWIFT_SQLCIPHER && !os(Linux)
 @available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *)
-extension Connection {
+extension SQLConnection {
     fileprivate func trace_v2(_ callback: ((String) -> Void)?) {
         guard let callback = callback else {
             // If the X callback is NULL or if the M mask is zero, then tracing is disabled.

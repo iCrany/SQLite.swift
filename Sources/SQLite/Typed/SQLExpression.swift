@@ -22,18 +22,18 @@
 // THE SOFTWARE.
 //
 
-public protocol ExpressionType : Expressible { // extensions cannot have inheritance clauses
+public protocol SQLExpressionType : SQLExpressible { // extensions cannot have inheritance clauses
 
     associatedtype UnderlyingType = Void
 
     var template: String { get }
-    var bindings: [Binding?] { get }
+    var bindings: [SQLBinding?] { get }
 
-    init(_ template: String, _ bindings: [Binding?])
+    init(_ template: String, _ bindings: [SQLBinding?])
 
 }
 
-extension ExpressionType {
+extension SQLExpressionType {
 
     public init(literal: String) {
         self.init(literal, [])
@@ -43,34 +43,34 @@ extension ExpressionType {
         self.init(literal: identifier.quote())
     }
 
-    public init<U : ExpressionType>(_ expression: U) {
+    public init<U : SQLExpressionType>(_ expression: U) {
         self.init(expression.template, expression.bindings)
     }
 
 }
 
 /// An `Expression` represents a raw SQL fragment and any associated bindings.
-public struct Expression<Datatype> : ExpressionType {
+public struct SQLExpression<Datatype> : SQLExpressionType {
 
     public typealias UnderlyingType = Datatype
 
     public var template: String
-    public var bindings: [Binding?]
+    public var bindings: [SQLBinding?]
 
-    public init(_ template: String, _ bindings: [Binding?]) {
+    public init(_ template: String, _ bindings: [SQLBinding?]) {
         self.template = template
         self.bindings = bindings
     }
 
 }
 
-public protocol Expressible {
+public protocol SQLExpressible {
 
-    var expression: Expression<Void> { get }
+    var expression: SQLExpression<Void> { get }
 
 }
 
-extension Expressible {
+extension SQLExpressible {
 
     // naïve compiler for statements that can’t be bound, e.g., CREATE TABLE
     // FIXME: make internal (0.12.0)
@@ -92,23 +92,23 @@ extension Expressible {
 
 }
 
-extension ExpressionType {
+extension SQLExpressionType {
 
-    public var expression: Expression<Void> {
-        return Expression(template, bindings)
+    public var expression: SQLExpression<Void> {
+        return SQLExpression(template, bindings)
     }
 
-    public var asc: Expressible {
-        return " ".join([self, Expression<Void>(literal: "ASC")])
+    public var asc: SQLExpressible {
+        return " ".join([self, SQLExpression<Void>(literal: "ASC")])
     }
 
-    public var desc: Expressible {
-        return " ".join([self, Expression<Void>(literal: "DESC")])
+    public var desc: SQLExpressible {
+        return " ".join([self, SQLExpression<Void>(literal: "DESC")])
     }
 
 }
 
-extension ExpressionType where UnderlyingType : Value {
+extension SQLExpressionType where UnderlyingType : SQLValue {
 
     public init(value: UnderlyingType) {
         self.init("?", [value.datatypeValue])
@@ -116,7 +116,7 @@ extension ExpressionType where UnderlyingType : Value {
 
 }
 
-extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.WrappedType : Value {
+extension SQLExpressionType where UnderlyingType : _SQLOptionalType, UnderlyingType.WrappedType : SQLValue {
 
     public static var null: Self {
         return self.init(value: nil)
@@ -128,20 +128,20 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
 
 }
 
-extension Value {
+extension SQLValue {
 
-    public var expression: Expression<Void> {
-        return Expression(value: self).expression
+    public var expression: SQLExpression<Void> {
+        return SQLExpression(value: self).expression
     }
 
 }
 
-public let rowid = Expression<Int64>("ROWID")
+public let rowid = SQLExpression<Int64>("ROWID")
 
-public func cast<T: Value, U: Value>(_ expression: Expression<T>) -> Expression<U> {
-    return Expression("CAST (\(expression.template) AS \(U.declaredDatatype))", expression.bindings)
+public func cast<T: SQLValue, U: SQLValue>(_ expression: SQLExpression<T>) -> SQLExpression<U> {
+    return SQLExpression("CAST (\(expression.template) AS \(U.declaredDatatype))", expression.bindings)
 }
 
-public func cast<T: Value, U: Value>(_ expression: Expression<T?>) -> Expression<U?> {
-    return Expression("CAST (\(expression.template) AS \(U.declaredDatatype))", expression.bindings)
+public func cast<T: SQLValue, U: SQLValue>(_ expression: SQLExpression<T?>) -> SQLExpression<U?> {
+    return SQLExpression("CAST (\(expression.template) AS \(U.declaredDatatype))", expression.bindings)
 }

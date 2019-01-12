@@ -4,28 +4,28 @@ import XCTest
 class DateAndTimeFunctionsTests : XCTestCase {
 
     func test_date() {
-        AssertSQL("date('now')", DateFunctions.date("now"))
-        AssertSQL("date('now', 'localtime')", DateFunctions.date("now", "localtime"))
+        AssertSQL("date('now')", SQLDateFunctions.date("now"))
+        AssertSQL("date('now', 'localtime')", SQLDateFunctions.date("now", "localtime"))
     }
 
     func test_time() {
-        AssertSQL("time('now')", DateFunctions.time("now"))
-        AssertSQL("time('now', 'localtime')", DateFunctions.time("now", "localtime"))
+        AssertSQL("time('now')", SQLDateFunctions.time("now"))
+        AssertSQL("time('now', 'localtime')", SQLDateFunctions.time("now", "localtime"))
     }
 
     func test_datetime() {
-        AssertSQL("datetime('now')", DateFunctions.datetime("now"))
-        AssertSQL("datetime('now', 'localtime')", DateFunctions.datetime("now", "localtime"))
+        AssertSQL("datetime('now')", SQLDateFunctions.datetime("now"))
+        AssertSQL("datetime('now', 'localtime')", SQLDateFunctions.datetime("now", "localtime"))
     }
 
     func test_julianday() {
-        AssertSQL("julianday('now')", DateFunctions.julianday("now"))
-        AssertSQL("julianday('now', 'localtime')", DateFunctions.julianday("now", "localtime"))
+        AssertSQL("julianday('now')", SQLDateFunctions.julianday("now"))
+        AssertSQL("julianday('now', 'localtime')", SQLDateFunctions.julianday("now", "localtime"))
     }
 
     func test_strftime() {
-        AssertSQL("strftime('%Y-%m-%d', 'now')", DateFunctions.strftime("%Y-%m-%d", "now"))
-        AssertSQL("strftime('%Y-%m-%d', 'now', 'localtime')", DateFunctions.strftime("%Y-%m-%d", "now", "localtime"))
+        AssertSQL("strftime('%Y-%m-%d', 'now')", SQLDateFunctions.strftime("%Y-%m-%d", "now"))
+        AssertSQL("strftime('%Y-%m-%d', 'now', 'localtime')", SQLDateFunctions.strftime("%Y-%m-%d", "now", "localtime"))
     }
 }
 

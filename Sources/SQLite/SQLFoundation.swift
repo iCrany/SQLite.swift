@@ -24,25 +24,25 @@
 
 import Foundation
 
-extension Data : Value {
+extension Data : SQLValue {
 
     public static var declaredDatatype: String {
-        return Blob.declaredDatatype
+        return SQLBlob.declaredDatatype
     }
 
-    public static func fromDatatypeValue(_ dataValue: Blob) -> Data {
+    public static func fromDatatypeValue(_ dataValue: SQLBlob) -> Data {
         return Data(bytes: dataValue.bytes)
     }
 
-    public var datatypeValue: Blob {
-        return withUnsafeBytes { (pointer: UnsafePointer<UInt8>) -> Blob in
-            return Blob(bytes: pointer, length: count)
+    public var datatypeValue: SQLBlob {
+        return withUnsafeBytes { (pointer: UnsafePointer<UInt8>) -> SQLBlob in
+            return SQLBlob(bytes: pointer, length: count)
         }
     }
 
 }
 
-extension Date : Value {
+extension Date : SQLValue {
 
     public static var declaredDatatype: String {
         return String.declaredDatatype

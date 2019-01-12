@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 //
 
-extension ExpressionType where UnderlyingType : Value {
+extension SQLExpressionType where UnderlyingType : SQLValue {
 
     /// Builds a copy of the expression prefixed with the `DISTINCT` keyword.
     ///
@@ -32,8 +32,8 @@ extension ExpressionType where UnderlyingType : Value {
     ///
     /// - Returns: A copy of the expression prefixed with the `DISTINCT`
     ///   keyword.
-    public var distinct: Expression<UnderlyingType> {
-        return Expression("DISTINCT \(template)", bindings)
+    public var distinct: SQLExpression<UnderlyingType> {
+        return SQLExpression("DISTINCT \(template)", bindings)
     }
 
     /// Builds a copy of the expression wrapped with the `count` aggregate
@@ -47,13 +47,13 @@ extension ExpressionType where UnderlyingType : Value {
     ///
     /// - Returns: A copy of the expression wrapped with the `count` aggregate
     ///   function.
-    public var count: Expression<Int> {
+    public var count: SQLExpression<Int> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.WrappedType : Value {
+extension SQLExpressionType where UnderlyingType : _SQLOptionalType, UnderlyingType.WrappedType : SQLValue {
 
     /// Builds a copy of the expression prefixed with the `DISTINCT` keyword.
     ///
@@ -63,8 +63,8 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression prefixed with the `DISTINCT`
     ///   keyword.
-    public var distinct: Expression<UnderlyingType> {
-        return Expression("DISTINCT \(template)", bindings)
+    public var distinct: SQLExpression<UnderlyingType> {
+        return SQLExpression("DISTINCT \(template)", bindings)
     }
 
     /// Builds a copy of the expression wrapped with the `count` aggregate
@@ -78,13 +78,13 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression wrapped with the `count` aggregate
     ///   function.
-    public var count: Expression<Int> {
+    public var count: SQLExpression<Int> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype : Comparable {
+extension SQLExpressionType where UnderlyingType : SQLValue, UnderlyingType.Datatype : Comparable {
 
     /// Builds a copy of the expression wrapped with the `max` aggregate
     /// function.
@@ -95,7 +95,7 @@ extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype :
     ///
     /// - Returns: A copy of the expression wrapped with the `max` aggregate
     ///   function.
-    public var max: Expression<UnderlyingType?> {
+    public var max: SQLExpression<UnderlyingType?> {
         return wrap(self)
     }
 
@@ -108,13 +108,13 @@ extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype :
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var min: Expression<UnderlyingType?> {
+    public var min: SQLExpression<UnderlyingType?> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.WrappedType : Value, UnderlyingType.WrappedType.Datatype : Comparable {
+extension SQLExpressionType where UnderlyingType : _SQLOptionalType, UnderlyingType.WrappedType : SQLValue, UnderlyingType.WrappedType.Datatype : Comparable {
 
     /// Builds a copy of the expression wrapped with the `max` aggregate
     /// function.
@@ -125,7 +125,7 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression wrapped with the `max` aggregate
     ///   function.
-    public var max: Expression<UnderlyingType> {
+    public var max: SQLExpression<UnderlyingType> {
         return wrap(self)
     }
 
@@ -138,13 +138,13 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var min: Expression<UnderlyingType> {
+    public var min: SQLExpression<UnderlyingType> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype : Number {
+extension SQLExpressionType where UnderlyingType : SQLValue, UnderlyingType.Datatype : SQLNumber {
 
     /// Builds a copy of the expression wrapped with the `avg` aggregate
     /// function.
@@ -155,7 +155,7 @@ extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype :
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var average: Expression<Double?> {
+    public var average: SQLExpression<Double?> {
         return "avg".wrap(self)
     }
 
@@ -168,7 +168,7 @@ extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype :
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var sum: Expression<UnderlyingType?> {
+    public var sum: SQLExpression<UnderlyingType?> {
         return wrap(self)
     }
 
@@ -181,13 +181,13 @@ extension ExpressionType where UnderlyingType : Value, UnderlyingType.Datatype :
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var total: Expression<Double> {
+    public var total: SQLExpression<Double> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.WrappedType : Value, UnderlyingType.WrappedType.Datatype : Number {
+extension SQLExpressionType where UnderlyingType : _SQLOptionalType, UnderlyingType.WrappedType : SQLValue, UnderlyingType.WrappedType.Datatype : SQLNumber {
 
     /// Builds a copy of the expression wrapped with the `avg` aggregate
     /// function.
@@ -198,7 +198,7 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var average: Expression<Double?> {
+    public var average: SQLExpression<Double?> {
         return "avg".wrap(self)
     }
 
@@ -211,7 +211,7 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var sum: Expression<UnderlyingType> {
+    public var sum: SQLExpression<UnderlyingType> {
         return wrap(self)
     }
 
@@ -224,15 +224,15 @@ extension ExpressionType where UnderlyingType : _OptionalType, UnderlyingType.Wr
     ///
     /// - Returns: A copy of the expression wrapped with the `min` aggregate
     ///   function.
-    public var total: Expression<Double> {
+    public var total: SQLExpression<Double> {
         return wrap(self)
     }
 
 }
 
-extension ExpressionType where UnderlyingType == Int {
+extension SQLExpressionType where UnderlyingType == Int {
 
-    static func count(_ star: Star) -> Expression<UnderlyingType> {
+    static func count(_ star: Star) -> SQLExpression<UnderlyingType> {
         return wrap(star(nil, nil))
     }
 
@@ -246,6 +246,6 @@ extension ExpressionType where UnderlyingType == Int {
 ///
 /// - Returns: An expression returning `count(*)` (when called with the `*`
 ///   function literal).
-public func count(_ star: Star) -> Expression<Int> {
-    return Expression.count(star)
+public func count(_ star: Star) -> SQLExpression<Int> {
+    return SQLExpression.count(star)
 }

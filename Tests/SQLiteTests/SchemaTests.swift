@@ -770,7 +770,7 @@ class SchemaTests : XCTestCase {
     func test_create_onVirtualTable_compilesCreateVirtualTableExpression() {
         XCTAssertEqual(
             "CREATE VIRTUAL TABLE \"virtual_table\" USING \"custom\"('foo', 'bar')",
-            virtualTable.create(Module("custom", ["foo", "bar"]))
+            virtualTable.create(SQLModule("custom", ["foo", "bar"]))
         )
     }
 
